@@ -43,7 +43,7 @@ const bear = [
         excerpt: "Something about this personal portfolio site..."
       }
     ]
-  },
+  }
 ];
 
 export default bear;
