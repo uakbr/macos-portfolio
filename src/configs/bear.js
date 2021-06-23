@@ -1,19 +1,6 @@
-import { FaPaw, FaVuejs } from "react-icons/fa";
-import {
-  GiNinjaHeroicStance,
-  GiJumpingDog,
-  GiEnergySword,
-  GiCat,
-  GiFishEscape
-} from "react-icons/gi";
+import { FaPaw } from "react-icons/fa";
+import { GiNinjaHeroicStance } from "react-icons/gi";
 import { VscGithub } from "react-icons/vsc";
-import { GoRepo, GoBrowser } from "react-icons/go";
-import { RiGamepadLine } from "react-icons/ri";
-import { HiFire } from "react-icons/hi";
-import { CgFormatText } from "react-icons/cg";
-import { BiCube, BiGame } from "react-icons/bi";
-import { BsFillImageFill } from "react-icons/bs";
-import { AiFillAudio } from "react-icons/ai";
 
 const bear = [
   {
