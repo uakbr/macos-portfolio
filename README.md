@@ -31,7 +31,6 @@ yarn build
 - [macOS Catalina](https://www.apple.com/bw/macos/catalina/)
 - [macOS Icon Gallery](https://www.macosicongallery.com/)
 - [sindresorhus/file-icon-cli](https://github.com/sindresorhus/file-icon-cli)
-- [vivek9patel.github.io](https://github.com/vivek9patel/vivek9patel.github.io)
 
 
 &nbsp;
