@@ -11,12 +11,8 @@ const terminal = [
         content: (
           <div className="py-1">
             <div>
-I am a Cloud Native Infrastructure Engineer and DevOps Professional. I have a deep understanding of Infrastructure Automation, Cloud Architecture, and Public/Private Cloud Provisioning. My experience includes scaling up infrastructure to meet diverse needs while ensuring compliance with enterprise policies, automation of infrastructure operations using open source toolsets such as Ansible, Terraform, Packer and Puppet.
-I work with Cloud and Infrastructure as Code (Iac), this includes Amazon Web Services (AWS), Google Cloud Platform (GCP), and Microsoft Azure
             </div>
             <div className="mt-1">
-I got my master's degree in cybersecurity and information assurance.
-
             </div>
           </div>
         )
