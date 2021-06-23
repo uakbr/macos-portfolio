@@ -10,11 +10,9 @@ const terminal = [
         type: "file",
         content: (
           <div className="py-1">
-            <div>
-            </div>
+            <div></div>
             <div className="mt-1">
-            </div>
-          </div>
+            </div></div>
         )
       },
       {
