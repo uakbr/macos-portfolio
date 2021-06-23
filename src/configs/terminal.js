@@ -11,8 +11,8 @@ const terminal = [
         content: (
           <div className="py-1">
             <div></div>
-            <div className="mt-1">
-            </div></div>
+            <div className="mt-1"></div>
+          </div>
         )
       },
       {
