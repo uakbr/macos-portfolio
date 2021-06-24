@@ -62,14 +62,14 @@ const apps = [
     title: "Mail",
     desktop: false,
     img: "img/icons/mail.png",
-    link: "mailto:renovamenzxh@gmail.com"
+    link: "mailto:umair@tesla.com.ai"
   },
   {
     id: "github",
     title: "Github",
     desktop: false,
     img: "img/icons/github.png",
-    link: "https://github.com/Renovamen/playground-macos"
+    link: "https://github.com/umair-akb/macos-portfolio"
   }
 ];
 
