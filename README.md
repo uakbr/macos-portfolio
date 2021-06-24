@@ -1,5 +1,4 @@
-# playground-macos
-
+# MacOS Portfolio
 My portfolio website simulating macOS's GUI
 
 Powered by [React](https://reactjs.org/) + [React Redux](https://react-redux.js.org/) + [tailwindcss](https://tailwindcss.com/).
