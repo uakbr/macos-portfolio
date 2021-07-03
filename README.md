@@ -20,16 +20,3 @@ yarn dev
 # build for production with minification to the `build` folder
 yarn build
 ```
-
-
-&nbsp;
-
-## Credits
-
-- [macOS Big Sur](https://www.apple.com/in/macos/big-sur/)
-- [macOS Catalina](https://www.apple.com/bw/macos/catalina/)
-- [macOS Icon Gallery](https://www.macosicongallery.com/)
-- [sindresorhus/file-icon-cli](https://github.com/sindresorhus/file-icon-cli)
-
-
-&nbsp;
