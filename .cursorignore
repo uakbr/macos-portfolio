@@ -1,11 +1,3 @@
-*.log
-.DS_Store
-.cache/
-node_modules
-build
-.npmrc
-.yarnrc
-
 venv
 venv/
 
