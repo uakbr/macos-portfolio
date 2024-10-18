@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import './styles/LiveWallpaper.css';
+import '../styles/LiveWallpaper.css'; // Updated import path
 
 function LiveWallpaper() {
   const canvasRef = useRef(null);
