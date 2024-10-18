@@ -1,22 +1,12 @@
 # MacOS Portfolio
-My portfolio website simulating macOS's GUI
 
-Powered by [React](https://reactjs.org/) + [React Redux](https://react-redux.js.org/) + [tailwindcss](https://tailwindcss.com/).
+My portfolio website simulating macOS's GUI.
 
-![day](./public/screenshots/day.png)
-![night](./public/screenshots/night.png)
+## Features
 
+- Simulates macOS desktop experience
+- Interactive applications like Terminal, Safari, and Notes
+- Theme switching between light and dark modes
+- Responsive design for various screen sizes
 
-&nbsp;
-
-## Usage
-
-```bash
-yarn install
-
-# serve with hot reload, open http://localhost:3000 to view it in the browser
-yarn dev
-
-# build for production with minification to the `build` folder
-yarn build
-```
+## Getting Started

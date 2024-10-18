@@ -9,6 +9,7 @@ import Window from "../components/Window";
 import Spotlight from "../components/Spotlight";
 import apps from "../configs/apps";
 import wallpapers from "../configs/wallpapers";
+import ErrorBoundary from "../components/ErrorBoundary";
 
 class Desktop extends Component {
   constructor(props) {
@@ -234,7 +235,9 @@ class Desktop extends Component {
         />
 
         {/* Desktop Apps */}
-        {this.renderAppWindows()}
+        <ErrorBoundary>
+          {this.renderAppWindows()}
+        </ErrorBoundary>
 
         {/* Spotlight */}
         {this.state.spotlight && (

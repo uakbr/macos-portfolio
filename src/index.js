@@ -8,6 +8,9 @@ import store from "./redux/store";
 import Desktop from "./pages/Desktop";
 import Login from "./pages/Login";
 import Boot from "./pages/Boot";
+import { I18nextProvider } from "react-i18next";
+import i18n from "./i18n";
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 export default function App() {
   const [login, setLogin] = useState(false);
@@ -62,13 +65,16 @@ export default function App() {
   }
 }
 
-const rootElement = document.getElementById("root");
-
 ReactDOM.render(
   <Provider store={store}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <I18nextProvider i18n={i18n}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </I18nextProvider>
   </Provider>,
-  rootElement
+  document.getElementById("root")
 );
+
+// Register the service worker
+serviceWorkerRegistration.register();

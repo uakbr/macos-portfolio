@@ -58,6 +58,12 @@ const launchpadApps = [
     title: "Fishmail",
     img: "img/icons/launchpad/fishmail.png",
     link: "https://github.com/umair-akb/"
+  },
+  {
+    id: "photos",
+    title: "Photos",
+    img: "img/icons/launchpad/photos.png",
+    link: "#"
   }
 ];
 

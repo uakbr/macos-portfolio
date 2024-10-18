@@ -3,6 +3,8 @@ import Terminal from "../components/apps/Terminal";
 import Safari from "../components/apps/Safari";
 import Bear from "../components/apps/Bear";
 import VSCode from "../components/apps/VSCode";
+import PhotosApp from "../components/apps/PhotosApp";
+import MusicPlayer from "../components/apps/MusicPlayer";
 
 const apps = [
   {
@@ -70,6 +72,22 @@ const apps = [
     desktop: false,
     img: "img/icons/github.png",
     link: "https://github.com/umair-akb/macos-portfolio"
+  },
+  {
+    id: "photos",
+    title: "Photos",
+    desktop: true,
+    show: false,
+    img: "img/icons/photos.png",
+    content: <PhotosApp />
+  },
+  {
+    id: "musicplayer",
+    title: "Music Player",
+    desktop: true,
+    show: false,
+    img: "img/icons/music.png",
+    content: <MusicPlayer />
   }
 ];
 

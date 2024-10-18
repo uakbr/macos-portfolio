@@ -6,7 +6,7 @@ import AppleMenu from "./AppleMenu";
 import WifiMenu from "./WifiMenu";
 import ControlCenterMenu from "./ControlCenterMenu";
 import { isFullScreen } from "../../utils/screen";
-import { setVolume, setBrightness, toggleFullScreen } from "../../redux/action";
+import { setVolume, setBrightness, toggleFullScreen, toggleDark } from "../../redux/action";
 import music from "../../configs/music";
 
 // ------- import icons -------
@@ -15,6 +15,7 @@ import { BiSearch } from "react-icons/bi";
 import { FaWifi } from "react-icons/fa";
 import { RiSignalWifiLine } from "react-icons/ri";
 import { AiFillApple } from "react-icons/ai";
+import { IoSunny, IoMoon } from "react-icons/io5";
 
 const TopBarItem = forwardRef((props, ref) => {
   const hide = props.hideOnMobile ? "hidden sm:inline-flex" : "inline-flex";
@@ -227,6 +228,13 @@ class TopBar extends Component {
 
           <span>{format(this.state.date, "eee MMM d")}</span>
           <span>{format(this.state.date, "h:mm aa")}</span>
+          <div
+            className="cursor-pointer mx-2"
+            onClick={() => this.props.toggleDark(!this.props.dark)}
+            aria-label={this.props.dark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          >
+            {this.props.dark ? <IoSunny size={20} /> : <IoMoon size={20} />}
+          </div>
         </div>
       </div>
     );
@@ -237,12 +245,13 @@ const mapStateToProps = (state) => {
   return {
     volume: state.volume,
     brightness: state.brightness,
-    wifi: state.wifi
+    wifi: state.wifi,
+    dark: state.dark
   };
 };
 
-export default connect(mapStateToProps, {
-  setVolume,
-  setBrightness,
-  toggleFullScreen
-})(TopBar);
+const mapDispatchToProps = {
+  toggleDark
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TopBar);

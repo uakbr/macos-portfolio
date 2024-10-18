@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Rnd } from "react-rnd";
 import { IoCloseOutline } from "react-icons/io5";
 import { FiMinus } from "react-icons/fi";
+import { motion } from "framer-motion";
 
 const FullIcon = ({ size }) => {
   return (
@@ -132,41 +133,10 @@ export default class Window extends Component {
     let children = React.cloneElement(this.props.children, { width: width });
 
     return (
-      <Rnd
-        size={{
-          width: width,
-          height: height
-        }}
-        position={{
-          x: this.props.max
-            ? 0
-            : Math.min(
-                window.innerWidth - minMarginX,
-                Math.max(-this.state.width + minMarginX, this.state.x)
-              ),
-          y: this.props.max
-            ? 0
-            : Math.min(
-                window.innerHeight - minMarginY,
-                Math.max(minMarginY, this.state.y)
-              )
-        }}
-        onDragStop={(e, d) => {
-          this.setState({ x: d.x, y: d.y });
-        }}
-        onResizeStop={(e, direction, ref, delta, position) => {
-          this.setState({
-            width: parseInt(ref.style.width),
-            height: parseInt(ref.style.height),
-            ...position
-          });
-        }}
-        minWidth={this.props.minWidth ? this.props.minWidth : 200}
-        minHeight={this.props.minHeight ? this.props.minHeight : 150}
-        dragHandleClassName="window-bar"
-        disableDragging={this.props.max}
-        style={{ zIndex: this.props.z }}
-        onMouseDown={() => this.props.focus(this.props.id)}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
         className={`absolute ${round} overflow-hidden bg-transparent w-full h-full ${border} shadow-md ${minimized}`}
         id={`window-${this.props.id}`}
       >
@@ -186,7 +156,7 @@ export default class Window extends Component {
           </span>
         </div>
         <div className="innner-window w-full overflow-y-hidden">{children}</div>
-      </Rnd>
+      </motion.div>
     );
   }
 }
