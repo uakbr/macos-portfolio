@@ -40,7 +40,7 @@ export const Reducer = (state = initState, action = {}) => {
     case type.TOGGLE_BLUETOOTH:
       return {
         ...state,
-        bluetooth: action.bluetooth
+        bluetooth: action.bluetooth,
       };
     case type.TOGGLE_AIRDROP:
       return {

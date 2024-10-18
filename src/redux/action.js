@@ -52,10 +52,10 @@ export const toggleWIFI = (wifi) => {
   };
 };
 
-export const toggleBleutooth = (bluetooth) => {
+export const toggleBluetooth = (bluetooth) => {
   return {
     type: type.TOGGLE_BLUETOOTH,
-    bluetooth
+    bluetooth,
   };
 };
 
