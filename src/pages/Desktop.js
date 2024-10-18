@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import nightwind from 'nightwind/helper';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 import TopBar from '../components/menus/TopBar';
 import Dock from '../components/dock/Dock';
@@ -246,6 +247,8 @@ class Desktop extends Component {
   };
 
   render() {
+    const { t } = this.props.useTranslation();
+
     return (
       <div className="w-full h-full overflow-hidden">
         {/* Live Wallpaper */}
