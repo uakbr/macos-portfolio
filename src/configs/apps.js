@@ -1,5 +1,5 @@
 import FaceTime from "../components/apps/FaceTime";
-import Terminal from "../components/apps/Terminal";
+import { Terminal } from "../components/apps/Terminal";
 import Safari from "../components/apps/Safari";
 import Bear from "../components/apps/Bear";
 import VSCode from "../components/apps/VSCode";
