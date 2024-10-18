@@ -10,7 +10,9 @@ import Login from "./pages/Login";
 import Boot from "./pages/Boot";
 import { I18nextProvider } from "react-i18next";
 import i18n from "./i18n";
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+
+// Remove or comment out the service worker import
+// import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 export default function App() {
   const [login, setLogin] = useState(false);
@@ -76,5 +78,5 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-// Register the service worker
-serviceWorkerRegistration.register();
+// Remove or comment out the service worker registration
+// serviceWorkerRegistration.register();
