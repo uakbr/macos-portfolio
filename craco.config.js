@@ -7,16 +7,13 @@ module.exports = {
       ]
     }
   },
+  babel: {
+    presets: ['@babel/preset-env', '@babel/preset-react'],
+  },
   webpack: {
-    configure: {
-      module: {
-        rules: [
-          {
-            test: /\.md$/,
-            use: "asset/resource"
-          }
-        ]
-      }
-    }
-  }
+    configure: (webpackConfig) => {
+      // Add any custom webpack configuration here
+      return webpackConfig;
+    },
+  },
 }
