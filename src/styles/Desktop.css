@@ -1,0 +1,109 @@
+.live-wallpaper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* Mission Control */
+.mission-control-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100000;
+}
+
+.mission-control-window {
+  position: absolute;
+  width: 300px;
+  height: 200px;
+  margin: 10px;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.mission-control-window span {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  color: #000;
+}
+
+/* Notification Center */
+.notification-center {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 300px;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.9);
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 100000;
+}
+
+.notification-center.show {
+  transform: translateX(0);
+}
+
+.notification-center h2 {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.notification {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+/* File System */
+.file-system {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.desktop-item {
+  position: absolute;
+  width: 60px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.desktop-item img {
+  width: 60px;
+  height: 60px;
+}
+
+.desktop-item span {
+  display: block;
+  margin-top: 5px;
+  color: #fff;
+}
+
+/* Context Menu */
+.context-menu {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  list-style: none;
+  padding: 5px 0;
+  z-index: 100000;
+}
+
+.context-menu li {
+  padding: 5px 20px;
+  cursor: pointer;
+}
+
+.context-menu li:hover {
+  background-color: #eee;
+}

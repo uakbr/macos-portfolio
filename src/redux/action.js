@@ -12,10 +12,14 @@ export const type = {
 };
 
 export const toggleDark = (dark) => {
-  nightwind.toggle();
+  if (dark) {
+    document.body.classList.add('dark-mode');
+  } else {
+    document.body.classList.remove('dark-mode');
+  }
   return {
     type: type.TOGGLE_DARK,
-    dark
+    dark,
   };
 };
 

@@ -332,3 +332,21 @@ input:focus + .slider-toggle {
 input:checked + .slider-toggle:before {
   @apply transform translate-x-3;
 }
+
+body {
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+body.dark-mode {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+
+/* Update other elements to respond to dark mode */
+.window {
+  transition: background-color 0.5s ease;
+}
+
+body.dark-mode .window {
+  background-color: #2e2e2e;
+}

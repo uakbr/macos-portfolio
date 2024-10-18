@@ -16,6 +16,9 @@ import { FaWifi } from "react-icons/fa";
 import { RiSignalWifiLine } from "react-icons/ri";
 import { AiFillApple } from "react-icons/ai";
 import { IoSunny, IoMoon } from "react-icons/io5";
+import { MdDashboard } from 'react-icons/md';
+import { IoIosNotifications } from 'react-icons/io';
+import { RiSettings3Fill } from 'react-icons/ri';
 
 const TopBarItem = forwardRef((props, ref) => {
   const hide = props.hideOnMobile ? "hidden sm:inline-flex" : "inline-flex";
@@ -198,11 +201,7 @@ class TopBar extends Component {
             onClick={this.toggleControlCenter}
             ref={this.controlCenterBtnRef}
           >
-            <img
-              className="w-4 h-4 filter invert"
-              src="img/icons/menu/controlcenter.png"
-              alt="control center"
-            />
+            <RiSettings3Fill size={20} />
           </TopBarItem>
 
           {/* Open this when clicking on Wifi button */}
@@ -234,6 +233,20 @@ class TopBar extends Component {
             aria-label={this.props.dark ? "Switch to Light Mode" : "Switch to Dark Mode"}
           >
             {this.props.dark ? <IoSunny size={20} /> : <IoMoon size={20} />}
+          </div>
+          <div
+            className="cursor-pointer mx-2"
+            onClick={this.props.toggleMissionControl}
+            aria-label="Mission Control"
+          >
+            <MdDashboard size={20} />
+          </div>
+          <div
+            className="cursor-pointer mx-2"
+            onClick={this.props.toggleNotificationCenter}
+            aria-label="Notification Center"
+          >
+            <IoIosNotifications size={20} />
           </div>
         </div>
       </div>

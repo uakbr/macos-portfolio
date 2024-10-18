@@ -1,51 +1,33 @@
-import React from "react";
-import { useMotionValue } from "framer-motion";
-import apps from "../../configs/apps";
-import DockItem from "./DockItem";
+import React from 'react';
+import { useMotionValue } from 'framer-motion';
+import apps from '../../configs/apps';
+import DockItem from './DockItem';
+import './styles/Dock.css';
 
-export default function Dock({
-  open,
-  showApps,
-  showLaunchpad,
-  toggleLaunchpad,
-  hide
-}) {
-  const openApp = (id) => {
-    if (id === "launchpad") toggleLaunchpad(!showLaunchpad);
-    else {
-      toggleLaunchpad(false);
-      open(id);
-    }
-  };
-
+function Dock({ open, hide }) {
   const mouseX = useMotionValue(null);
 
   return (
     <div
-      className="dock w-full sm:w-max fixed left-0 right-0 mx-auto bottom-0 overflow-x-scroll sm:overflow-x-visible"
+      className="dock"
+      onMouseMove={(e) => mouseX.set(e.nativeEvent.clientX)}
+      onMouseLeave={() => mouseX.set(null)}
       style={{
-        zIndex: hide ? 0 : 99999
+        zIndex: hide ? 0 : 99999,
       }}
     >
-      <ul
-        className="mx-auto w-max px-2 space-x-2 flex flex-row justify-center justify-between bg-white bg-opacity-20 blur rounded-none sm:rounded-t-lg shadow-2xl"
-        onMouseMove={(e) => mouseX.set(e.nativeEvent.x)}
-        onMouseLeave={() => mouseX.set(null)}
-      >
-        {apps.map((app) => (
+      <ul className="dock-items">
+        {apps.map((app, index) => (
           <DockItem
-            key={`dock-${app.id}`}
-            id={app.id}
-            title={app.title}
-            img={app.img}
+            key={app.id}
+            app={{ ...app, index }}
             mouseX={mouseX}
-            desktop={app.desktop}
-            openApp={openApp}
-            isOpen={app.desktop && showApps[app.id]}
-            link={app.link}
+            openApp={open}
           />
         ))}
       </ul>
     </div>
   );
 }
+
+export default Dock;

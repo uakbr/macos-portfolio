@@ -1,15 +1,22 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import nightwind from "nightwind/helper";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import nightwind from 'nightwind/helper';
+import { motion } from 'framer-motion';
 
-import TopBar from "../components/menus/TopBar";
-import Dock from "../components/dock/Dock";
-import Launchpad from "../components/Launchpad";
-import Window from "../components/Window";
-import Spotlight from "../components/Spotlight";
-import apps from "../configs/apps";
-import wallpapers from "../configs/wallpapers";
-import ErrorBoundary from "../components/ErrorBoundary";
+import TopBar from '../components/menus/TopBar';
+import Dock from '../components/dock/Dock';
+import Launchpad from '../components/Launchpad';
+import Window from '../components/Window';
+import Spotlight from '../components/Spotlight';
+import apps from '../configs/apps';
+import wallpapers from '../configs/wallpapers';
+import MissionControl from '../components/MissionControl';
+import NotificationCenter from '../components/NotificationCenter';
+import LiveWallpaper from '../components/LiveWallpaper';
+import FileSystem from '../components/FileSystem';
+import ErrorBoundary from '../components/ErrorBoundary';
+
+import { toggleDark } from '../redux/action';
 
 class Desktop extends Component {
   constructor(props) {
@@ -21,15 +28,19 @@ class Desktop extends Component {
       minApps: {},
       maxZ: 2,
       showLaunchpad: false,
-      currentTitle: "Finder",
+      currentTitle: 'Finder',
       hideDock: false,
       spotlight: false,
-      spotlightBtnRef: null
+      spotlightBtnRef: null,
+      showMissionControl: false,
+      showNotificationCenter: false,
+      notifications: [],
     };
   }
 
   componentDidMount() {
     this.getAppsData();
+    this.detectColorScheme();
   }
 
   getAppsData = () => {
@@ -41,33 +52,33 @@ class Desktop extends Component {
     apps.forEach((app) => {
       showApps = {
         ...showApps,
-        [app.id]: app.show
+        [app.id]: app.show,
       };
       appsZ = {
         ...appsZ,
-        [app.id]: 2
+        [app.id]: 2,
       };
       maxApps = {
         ...maxApps,
-        [app.id]: false
+        [app.id]: false,
       };
       minApps = {
         ...minApps,
-        [app.id]: false
+        [app.id]: false,
       };
     });
 
-    this.setState({ showApps });
+    this.setState({ showApps, appsZ, maxApps, minApps });
   };
 
   toggleLaunchpad = (target) => {
     let r = document.querySelector(`#launchpad`);
     if (target) {
-      r.style.transform = "scale(1)";
-      r.style.transition = "ease-in 0.2s";
+      r.style.transform = 'scale(1)';
+      r.style.transition = 'ease-in 0.2s';
     } else {
-      r.style.transform = "scale(1.1)";
-      r.style.transition = "ease-out 0.2s";
+      r.style.transform = 'scale(1.1)';
+      r.style.transition = 'ease-out 0.2s';
     }
 
     this.setState({ showLaunchpad: target });
@@ -77,17 +88,13 @@ class Desktop extends Component {
     this.setState({ spotlight: !this.state.spotlight });
   };
 
-  setWinowsPosition = (id) => {
+  setWindowsPosition = (id) => {
     let r = document.querySelector(`#window-${id}`);
-    const rect = r.getBoundingClientRect();
-    r.style.setProperty(
-      "--window-transform-x",
-      rect.x.toFixed(1).toString() + "px"
-    );
-    r.style.setProperty(
-      "--window-transform-y",
-      rect.y.toFixed(1).toString() + "px"
-    );
+    if (r) {
+      const rect = r.getBoundingClientRect();
+      r.style.setProperty('--window-transform-x', rect.x.toFixed(1) + 'px');
+      r.style.setProperty('--window-transform-y', rect.y.toFixed(1) + 'px');
+    }
   };
 
   closeApp = (id) => {
@@ -95,16 +102,14 @@ class Desktop extends Component {
     showApps[id] = false;
     this.setState({
       showApps: showApps,
-      hideDock: false
+      hideDock: false,
     });
   };
 
   openApp = (id) => {
-    // add it to the shown app list
     let showApps = this.state.showApps;
     showApps[id] = true;
 
-    // move to the top (use a maximum z-index)
     let appsZ = this.state.appsZ;
     let maxZ = this.state.maxZ + 1;
     appsZ[id] = maxZ;
@@ -115,19 +120,16 @@ class Desktop extends Component {
       maxZ: maxZ,
       currentTitle: apps.find((app) => {
         return app.id === id;
-      }).title
+      }).title,
     });
 
     let minApps = this.state.minApps;
-    // if the app has already been shown but minimized
     if (minApps[id]) {
-      // move to window's last position
       var r = document.querySelector(`#window-${id}`);
       r.style.transform = `translate(${r.style.getPropertyValue(
-        "--window-transform-x"
-      )}, ${r.style.getPropertyValue("--window-transform-y")}) scale(1)`;
-      r.style.transition = "ease-in 0.3s";
-      // remove it from the minimized app list
+        '--window-transform-x'
+      )}, ${r.style.getPropertyValue('--window-transform-y')}) scale(1)`;
+      r.style.transition = 'ease-in 0.3s';
       minApps[id] = false;
       this.setState({ minApps });
     }
@@ -139,7 +141,7 @@ class Desktop extends Component {
     maxApps[id] = target;
     this.setState({
       maxApps: maxApps,
-      hideDock: target
+      hideDock: target,
     });
   };
 
@@ -148,30 +150,32 @@ class Desktop extends Component {
     if (target === undefined) target = !minApps[id];
     minApps[id] = target;
     this.setState({
-      minApps: minApps
+      minApps: minApps,
     });
   };
 
   minimizeApp = (id) => {
-    this.setWinowsPosition(id);
+    this.setWindowsPosition(id);
 
-    // get the corrosponding dock icon's position
-    var r = document.querySelector(`#dock-${id}`);
-    const dockAppRect = r.getBoundingClientRect();
+    var dockItem = document.querySelector(`#dock-${id}`);
+    if (!dockItem) return;
+    const dockAppRect = dockItem.getBoundingClientRect();
 
-    r = document.querySelector(`#window-${id}`);
-    const appRect = r.getBoundingClientRect();
+    var windowElement = document.querySelector(`#window-${id}`);
+    if (!windowElement) return;
+    const appRect = windowElement.getBoundingClientRect();
     const posY =
       document.body.offsetHeight -
       appRect.y.toFixed(1) -
-      (r.offsetHeight / 2).toFixed(1);
-    const posX = dockAppRect.x.toFixed(1) - (r.offsetWidth / 2).toFixed(1) + 25;
+      (windowElement.offsetHeight / 2).toFixed(1);
+    const posX =
+      dockAppRect.x.toFixed(1) -
+      (windowElement.offsetWidth / 2).toFixed(1) +
+      25;
 
-    // translate the window to that position
-    r.style.transform = `translate(${posX}px, ${posY}px) scale(0.2)`;
-    r.style.transition = "ease-out 0.3s";
+    windowElement.style.transform = `translate(${posX}px, ${posY}px) scale(0.2)`;
+    windowElement.style.transition = 'ease-out 0.3s';
 
-    // add it to the minimized app list
     this.setAppMin(id, true);
   };
 
@@ -191,7 +195,7 @@ class Desktop extends Component {
           close: this.closeApp,
           setMax: this.setAppMax,
           setMin: this.minimizeApp,
-          focus: this.openApp
+          focus: this.openApp,
         };
 
         return (
@@ -200,41 +204,65 @@ class Desktop extends Component {
           </Window>
         );
       } else {
-        return <div key={`desktop-app-${app.id}`} />;
+        return null;
       }
     });
   };
 
+  toggleMissionControl = () => {
+    this.setState((prevState) => ({
+      showMissionControl: !prevState.showMissionControl,
+    }));
+  };
+
+  toggleNotificationCenter = () => {
+    this.setState((prevState) => ({
+      showNotificationCenter: !prevState.showNotificationCenter,
+    }));
+  };
+
+  detectColorScheme = () => {
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    this.props.toggleDark(prefersDarkMode);
+  };
+
+  addNotification = (message) => {
+    const newNotification = {
+      id: Date.now(),
+      message,
+    };
+    this.setState((prevState) => ({
+      notifications: [newNotification, ...prevState.notifications],
+    }));
+  };
+
+  getOpenApps = () => {
+    return apps
+      .filter((app) => this.state.showApps[app.id])
+      .map((app) => ({
+        ...app,
+        focus: this.openApp,
+      }));
+  };
+
   render() {
     return (
-      <div
-        className="w-full h-full overflow-hidden bg-center bg-cover"
-        style={{
-          backgroundImage: `url(${
-            this.props.dark ? wallpapers.night : wallpapers.day
-          })`,
-          filter: `brightness( ${this.props.brightness * 0.7 + 50}% )`
-        }}
-      >
-        {/* Dark Model Toggler */}
-        <script dangerouslySetInnerHTML={{ __html: nightwind.init() }} />
+      <div className="w-full h-full overflow-hidden">
+        {/* Live Wallpaper */}
+        <LiveWallpaper />
 
-        {/* Top Menu Bar */}
+        {/* Top Bar */}
         <TopBar
           title={this.state.currentTitle}
-          setLogin={this.props.setLogin}
-          shutMac={this.props.shutMac}
-          sleepMac={this.props.sleepMac}
-          restartMac={this.props.restartMac}
           toggleSpotlight={this.toggleSpotlight}
-          setSpotlightBtnRef={(value) => {
-            this.setState({
-              spotlightBtnRef: value
-            });
-          }}
+          toggleMissionControl={this.toggleMissionControl}
+          toggleNotificationCenter={this.toggleNotificationCenter}
         />
 
-        {/* Desktop Apps */}
+        {/* Desktop Icons */}
+        <FileSystem openItem={this.openApp} />
+
+        {/* App Windows */}
         <ErrorBoundary>
           {this.renderAppWindows()}
         </ErrorBoundary>
@@ -258,21 +286,34 @@ class Desktop extends Component {
         {/* Dock */}
         <Dock
           open={this.openApp}
-          showApps={this.state.showApps}
-          showLaunchpad={this.state.showLaunchpad}
-          toggleLaunchpad={this.toggleLaunchpad}
           hide={this.state.hideDock}
+        />
+
+        {/* Mission Control */}
+        {this.state.showMissionControl && (
+          <MissionControl
+            openApps={this.getOpenApps()}
+            closeMissionControl={this.toggleMissionControl}
+          />
+        )}
+
+        {/* Notification Center */}
+        <NotificationCenter
+          show={this.state.showNotificationCenter}
+          notifications={this.state.notifications}
         />
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    dark: state.dark,
-    brightness: state.brightness
-  };
+const mapStateToProps = (state) => ({
+  dark: state.dark,
+  brightness: state.brightness,
+});
+
+const mapDispatchToProps = {
+  toggleDark,
 };
 
-export default connect(mapStateToProps, null)(Desktop);
+export default connect(mapStateToProps, mapDispatchToProps)(Desktop);
