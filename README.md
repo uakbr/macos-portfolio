@@ -10,3 +10,5 @@ My portfolio website simulating macOS's GUI.
 - Responsive design for various screen sizes
 
 ## Getting Started
+
+// ... Add further instructions as necessary ...
