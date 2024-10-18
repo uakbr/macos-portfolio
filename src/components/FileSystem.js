@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './styles/FileSystem.css';
+import '../styles/FileSystem.css'; // Updated import path
 
 function FileSystem({ openItem }) {
   const [items, setItems] = useState([

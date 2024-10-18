@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Rnd } from 'react-rnd';
 import { motion } from 'framer-motion';
-import '../styles/Window.css'; // Updated import path
+import '../styles/Window.css'; // Already updated
 
 class Window extends Component {
   constructor(props) {

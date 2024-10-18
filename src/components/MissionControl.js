@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import './styles/MissionControl.css';
+import '../styles/MissionControl.css'; // Updated import path
 
 function MissionControl({ openApps, closeMissionControl }) {
   const positions = [

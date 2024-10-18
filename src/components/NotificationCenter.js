@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../styles/NotificationCenter.css'; // Updated import path
 
 function NotificationCenter({ show, notifications }) {
   return (
