@@ -2,7 +2,7 @@ import React from 'react';
 import { useMotionValue } from 'framer-motion';
 import apps from '../../configs/apps';
 import DockItem from './DockItem';
-import '../../styles/Dock.css'; // Updated import path
+import '../../styles/Dock.css';
 
 function Dock({ open, hide }) {
   const mouseX = useMotionValue(null);

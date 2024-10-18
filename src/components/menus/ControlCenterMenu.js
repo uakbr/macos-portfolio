@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { setVolume, setBrightness, toggleWIFI, toggleBluetooth } from '../../redux/action';
-import '../../styles/ControlCenter.css'; // Updated import path
+import '../../styles/ControlCenter.css';
 
 function ControlCenterMenu(props) {
   return (

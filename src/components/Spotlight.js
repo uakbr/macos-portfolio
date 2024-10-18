@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
-import '../styles/Spotlight.css'; // Updated import path
+import '../styles/Spotlight.css';
 
 function Spotlight({ openApp, toggleLaunchpad }) {
   const [query, setQuery] = useState('');
